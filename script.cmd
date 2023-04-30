@@ -1,8 +1,9 @@
 echo >/dev/null # >nul & GOTO WINDOWS & rem ^
-
-
-
-
+# LICENSE CLAUSES HERE
+# --------------------
+# Leave the echo instruction above as first line as it is the trigger for
+# jumping for Windows OS.
+#
 ################################################################################
 # Unix Main Codes                                                              #
 ################################################################################
