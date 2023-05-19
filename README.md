@@ -67,6 +67,7 @@ hugo server --noBuildLock ^
 ::##############################################################################
 :: Windows Main Codes                                                          #
 ::##############################################################################
+EXIT /B
 ```
 
 In case you don't know, coding either the SHELL script or the BATCH script can
