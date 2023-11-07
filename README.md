@@ -1,11 +1,10 @@
-# Holloway's Polygot Command Script
-[![Holloway's Polygot Command Script](artworks/logo-1200x630.svg)](https://github.com/hollowaykeanho/PolygotScript)
+# Holloway's Polygot Scripts
+[![Holloway's Polygot Scripts](artworks/logo-1200x630.svg)](https://github.com/hollowaykeanho/PolygotScript)
 
-This is a reference repo serving as a sharing and quality control location for
-my polygot command script that can be operated in both UNIX and WINDOWS
-environment. This script is generally used for multi-system distributions where
-a common initializing point is a lot easier to maintain than multiple
-os-oriented shell scripts.
+This is a reference repo serving as a sharing and quality control for my polygot
+scripts: **The same script can be operated in both UNIX and WINDOWS OSes**. This
+script is generally used various multi-system distributions and fleet control
+initialization where maintaining multi-OSes end products can be easily done.
 
 
 
@@ -23,58 +22,65 @@ Mainly for multi-os decentralized packaging usage:
 
 
 
-## The Product
-The product is located in the root repository called `script.cmd`.
+## The Products
+The products are located in the root repository in various versions:
 
-Due to Windows' complexity and heavy requirement for file extension, the file
-**MUST be suffix with the batch script extension: the `.cmd`**. Such phenomenon
-is unseen in UNIX environment.
+1. [posix-batch-powershell.sh.ps1.cmd](posix-batch-powershell.sh.ps1.cmd) -
+   capable of running in:
+   1. POSIX Shell mode; AND
+   2. BATCH mode; AND
+   3. POWERSHELL mode.
+2. [posix-batch.sh.cmd](posix-batch.sh.cmd) - capable of running in:
+   1. POSIX Shell mode; AND
+   2. BATCH mode; AND
+   > [!NOTE]
+   > PowerShell knows how to execute batch script. No auto-correction is
+   > required.
+3. [posix-powershell.sh.cmd](posix-powershell.sh.cmd) - capable of running in:
+   1. POSIX Shell mode; AND
+   2. POWERSHELL mode.
+   > [!IMPORTANT]
+   > When executed in Batch mode, it will auto-correct itself to PowerShell and
+   > execute it from there.
+4. [posix-powershell.sh.ps1](posix-powershell.sh.ps1) - capable of running in:
+   1. POSIX Shell mode; AND
+   2. POWERSHELL mode.
 
+
+
+
+## File Extensions
+While UNIX systems do not demand for file extensions, Windows do have its
+complex and heavy requirement for it. As a practice, the file extension shall
+always be lead by the UNIX (`.sh*`) and ends with Windows (either `*.cmd` for
+Batch initialization or `*.ps1` for PowerShell initialization).
+
+For the highest portability, I recommend keeping the initialization with Batch
+mode since its execution can auto-correct to PowerShell mode when available
+(Refer [posix-powershell.sh.ps1](posix-powershell.sh.ps1) for how it's done).
+
+Hence, this is the Polygot script's file extension I would recommend:
+
+```
+filename.sh.ps1.cmd       # start by Batch
+filename.sh.cmd.ps1       # start by PowerShell
+filename.sh.cmd
+filename.sh.ps1
+```
+
+
+
+
+## Maintain Simplicity for Sanity
 It is always advisable to keep this script as simple as calling the OS-specific
 initializing command rather than develop a
 [fat binary](https://en.wikipedia.org/wiki/Fat_binary) like executable script.
-Example:
 
-```
-echo >/dev/null # >nul & GOTO WINDOWS & rem ^
+In case you don't know, coding all 3 types of scripts and compile into 1
+manually can be a cumbersome task as they can easily become large. Should it be
+too complex, you should use proper programming languages like Go or Rust.
 
-
-
-
-################################################################################
-# Unix Main Codes                                                              #
-################################################################################
-hugo server --noBuildLock \
-        --disableFastRender \
-        --port 8080 \
-        --gc
-################################################################################
-# Unix Main Codes                                                              #
-################################################################################
-exit $?
-
-
-
-
-:WINDOWS
-::##############################################################################
-:: Windows Main Codes                                                          #
-::##############################################################################
-hugo server --noBuildLock ^
-        --disableFastRender ^
-        --port 8080 ^
-        --gc
-::##############################################################################
-:: Windows Main Codes                                                          #
-::##############################################################################
-EXIT /B
-```
-
-In case you don't know, coding either the SHELL script or the BATCH script can
-be a cumbersome task when they became large; left alone combining them in 1
-file. Use proper programming languages like Go for such task.
-
-**DO NOT abuse it. You have been warned!**
+Please **DO NOT abuse it. You have been warned!**
 
 
 
