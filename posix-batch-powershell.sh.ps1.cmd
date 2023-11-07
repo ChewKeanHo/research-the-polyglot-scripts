@@ -1,4 +1,5 @@
-echo \" <<'BATCH' >/dev/null ">NUL "\" \`" <#"
+echo \" <<'RUN_AS_BATCH' >/dev/null ">NUL "\" \`" <#"
+@ECHO OFF
 REM LICENSE CLAUSES HERE
 REM ----------------------------------------------------------------------------
 
@@ -8,35 +9,32 @@ REM ----------------------------------------------------------------------------
 REM ############################################################################
 REM # Windows BATCH Codes                                                      #
 REM ############################################################################
-@ECHO OFF
 set name='User'
 echo Hello world from WINDOWS Batch, %name%!
-EXIT \B
+echo Arguments = %*
 REM ############################################################################
 REM # Windows BATCH Codes                                                      #
 REM ############################################################################
-GOTO :eof
-TYPE CON >NUL
-BATCH
+EXIT /B
+RUN_AS_BATCH
 #> | Out-Null
 
 
 
 
-echo \" <<'POWERSHELL' >/dev/null # " | Out-Null
+echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 ################################################################################
 # Windows POWERSHELL Codes                                                     #
 ################################################################################
 $name = "User"
 Write-Host "Hello world from WINDOWS PowerShell, ${name}"
-exit 0
+Write-Host "Arguments = $args"
 ################################################################################
 # Windows POWERSHELL Codes                                                     #
 ################################################################################
-while ( ! $MyInvocation.MyCommand.Source ) { $input_line = Read-Host }
-exit
+exit $?
 <#
-POWERSHELL
+RUN_AS_POWERSHELL
 
 
 
@@ -46,9 +44,9 @@ POWERSHELL
 ################################################################################
 name="User"
 printf "Hello world from UNIX, %s.\n" "$name"
-exit 0
+printf "Arguments = ${*}\n"
 ################################################################################
 # Unix Main Codes                                                              #
 ################################################################################
-exit
+exit $?
 #>
