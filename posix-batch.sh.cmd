@@ -1,8 +1,39 @@
-echo >/dev/null # >nul & GOTO WINDOWS & rem ^
-# LICENSE CLAUSES HERE
-# --------------------
-# Leave the echo instruction above as first line as it is the trigger for
-# jumping for Windows OS.
+echo \" <<'RUN_AS_BATCH' >/dev/null ">NUL "\" \`" <#"
+@ECHO OFF
+REM LICENSE CLAUSES HERE
+REM ----------------------------------------------------------------------------
+
+
+
+
+REM ############################################################################
+REM # Windows BATCH Codes                                                      #
+REM ############################################################################
+set name='User'
+echo Hello world from WINDOWS Batch, %name%!
+echo Arguments = %*
+REM ############################################################################
+REM # Windows BATCH Codes                                                      #
+REM ############################################################################
+EXIT /B
+RUN_AS_BATCH
+#> | Out-Null
+
+
+
+
+echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
+################################################################################
+# Windows POWERSHELL Codes                                                     #
+################################################################################
+Write-Error "ERROR - Powershell unsupported. Please run with '*.cmd' extension."
+exit 1
+################################################################################
+# Windows POWERSHELL Codes                                                     #
+################################################################################
+exit $?
+<#
+RUN_AS_POWERSHELL
 
 
 
@@ -12,21 +43,9 @@ echo >/dev/null # >nul & GOTO WINDOWS & rem ^
 ################################################################################
 name="User"
 printf "Hello world from UNIX, %s.\n" "$name"
+printf "Arguments = ${*}\n"
 ################################################################################
 # Unix Main Codes                                                              #
 ################################################################################
 exit $?
-
-
-
-
-:WINDOWS
-::##############################################################################
-:: Windows Main Codes                                                          #
-::##############################################################################
-set name='User'
-echo Hello world from WINDOWS, %name%!
-::##############################################################################
-:: Windows Main Codes                                                          #
-::##############################################################################
-EXIT /B
+#>
