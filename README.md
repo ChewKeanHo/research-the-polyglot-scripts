@@ -12,8 +12,8 @@ initialization where maintaining multi-OSes end products can be easily done.
 ## Why It Matters
 Mainly for multi-os decentralized packaging usage:
 
-1. **1 common start point** - less communication errors; more control over the
-   package installation.
+1. **1 common starting point** - less communication errors; more control over
+   the package installation.
 2. **Maintainable and documentable** - 1 single start point; 1 set of
    documentation only; 1 easy way to maintain the starting point command.
 3. **Simple and modular** - can easily drill down the errors due to
@@ -30,18 +30,23 @@ The products are located in the root repository in various versions:
    1. POSIX Shell mode; AND
    2. BATCH mode; AND
    3. POWERSHELL mode.
+
 2. [posix-batch.sh.cmd](posix-batch.sh.cmd) - capable of running in:
    1. POSIX Shell mode; AND
    2. BATCH mode; AND
-   > [!NOTE]
-   > PowerShell knows how to execute batch script. No auto-correction is
-   > required.
+
+> [!NOTE]
+> PowerShell knows how to execute batch script. No auto-correction is
+> required.
+
 3. [posix-powershell.sh.cmd](posix-powershell.sh.cmd) - capable of running in:
    1. POSIX Shell mode; AND
    2. POWERSHELL mode.
-   > [!IMPORTANT]
-   > When executed in Batch mode, it will auto-correct itself to PowerShell and
-   > execute it from there.
+
+> [!IMPORTANT]
+> When executed in Batch mode, it will auto-correct itself to PowerShell and
+> execute it from there.
+
 4. [posix-powershell.sh.ps1](posix-powershell.sh.ps1) - capable of running in:
    1. POSIX Shell mode; AND
    2. POWERSHELL mode.
@@ -77,8 +82,9 @@ initializing command rather than develop a
 [fat binary](https://en.wikipedia.org/wiki/Fat_binary) like executable script.
 
 In case you don't know, coding all 3 types of scripts and compile into 1
-manually can be a cumbersome task as they can easily become large. Should it be
-too complex, you should use proper programming languages like Go or Rust.
+manually can be a cumbersome task as the output file can easily become 3x
+larger. Should it be too complex, you should use proper programming languages
+like Go or Rust.
 
 Please **DO NOT abuse it. You have been warned!**
 
@@ -86,4 +92,4 @@ Please **DO NOT abuse it. You have been warned!**
 
 
 ## License
-This project is licensed under [MIT License](LICENSE).
+This project is licensed under [MIT License](LICENSE.txt).

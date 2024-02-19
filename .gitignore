@@ -5,14 +5,7 @@
 #####################
 # Standard FHS
 #####################
-docs/resources/
-themes/
-*.log
-.bin/
 vendor/
-gh-pages/
-bin/
-tmp/
 output/
 /releases/
 !/*/releases/
@@ -22,15 +15,57 @@ output/
 #####################
 /.monteurFS/
 /.configs/montuer/secrets/
+.bin/
+
+#####################
+# AutomataCI
+#####################
+/SECRETS.toml
+/bin
+/tools
+/tmp
+/log
+/build
+/pkg
+/releases
+/resources/changelog/*/.*
+
+#####################
+# Angular
+#####################
+/out-tsc
+/bazel-out
+cache/
+coverage/
+dist/
+.sass-cache/
+connect.lock
+libpeerconnection.log
+testem.log
+typings
+
+#####################
+# LibreOffice
+#####################
+.~lock*
+
+#####################
+# Python
+#####################
+venv/
+__pycache__
+.coverage
 
 #####################
 # Rust
 #####################
 target/
+*.profraw
 
 #####################
 # Hugo
 #####################
+themes/
 public/
 .hugo_build.lock
 
@@ -45,7 +80,7 @@ certbot.log
 /build
 
 #####################
-# vim specifics
+# vim
 #####################
 4913
 *.swp
@@ -56,14 +91,48 @@ certbot.log
 *.d
 !*.d/
 *.o
+*.a
+*.dll
+*.exe
 *.elf
 *.hex
 *.bin
 
 #####################
+# Node
+#####################
+node_modules
+npm-debug.log
+yarn-error.log
+
+#####################
+# Databases
+#####################
+*.db
+
+#####################
+# SQLite
+#####################
+*.sqlite3
+*.sqlite
+*.sqlite-journal
+*.db-journal
+
+#####################
+# GitHub
+#####################
+gh-pages/
+
+#####################
+# Logs
+#####################
+*.log
+
+#####################
 # MacOS specifics
 #####################
 .DS_Store
+Thumbs.db
 
 #####################
 # AWS CLI credential blobs

@@ -1,0 +1,47 @@
+name: on Git Push
+run-name: CI Run upon Git Push.
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+      - testing
+      - staging
+      - edge
+      - experimental
+jobs:
+  develop_on:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    env:
+        TERM: xterm-256color
+        PROJECT_SIMULATE_RELEASE_REPO: true
+    steps:
+      - name: Checking out designated commit - GITHUB ACTIONS
+        id: git_check_out
+        uses: actions/checkout@v4
+      - name: Initialize - GITHUB ACTIONS
+        id: git_initialize
+        run: |
+          git config --global user.email "github.actions.runner@github.com"
+          git config --global user.name "Github Action Automated Runner"
+      - name: Execute SH-CMD
+        id: native_ci_SH-CMD
+        run: |
+          ./posix-batch.sh.cmd arg1 arg2 'arg3 arg4'
+      - name: Execute SH-PS1-CMD
+        id: native_ci_SH-PS1-CMD
+        run: |
+          ./posix-batch-powershell.sh.ps1.cmd  arg1 arg2 'arg3 arg4'
+      - name: Execute Powershell SH-CMD
+        id: native_ci_PS1-SH-CMD
+        run: |
+          ./posix-powershell.sh.cmd  arg1 arg2 'arg3 arg4'
+      - name: Execute Powershell SH-PS1
+        id: native_ci_SH-PS1
+        run: |
+          ./posix-powershell.sh.ps1  arg1 arg2 'arg3 arg4'
