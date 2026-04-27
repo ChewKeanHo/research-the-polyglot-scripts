@@ -40,7 +40,8 @@ $____is_first = $true
 foreach ($____target in @(
         "BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1",
         "POWERSHELL-POSIXSHELL.sh.ps1",
-        "BATCH-POSIXSHELL.sh.cmd"
+        "BATCH-POSIXSHELL.sh.cmd",
+        "BATCH-POWERSHELL.cmd.ps1"
 )) {
         if ($____is_first -ne $true) {
                 $null = Write-Host "`n`n`n"
@@ -99,10 +100,15 @@ for ____target in ./*; do
         fi
         unset ____is_first
 
+
         1>&2 printf -- "Testing '%s' POSIX Shell Mode...\n" "$____target"
-        ./"$____target" --name "Alpha" --length 5
-        if [ $? -ne 0 ]; then
-                ____verdict=false
+        if [ ! "${____target##*"BATCH-POWERSHELL.cmd.ps1"}" = "$____target" ]; then
+                ./"$____target" -Name "Alpha" -Length 5
+        else
+                ./"$____target" --name "Alpha" --length 5
+                if [ $? -ne 0 ]; then
+                        ____verdict=false
+                fi
         fi
 done
 
