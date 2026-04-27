@@ -36,23 +36,32 @@ $null = Set-Location "$(Get-Location)\App"
 
 
 # execute
+$____is_first = $true
 foreach ($____target in @(
-        "BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1"
+        "BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1",
+        "POWERSHELL-POSIXSHELL.sh.ps1"
 )) {
+        if ($____is_first -ne $true) {
+                $null = Write-Host "`n`n`n"
+        }
+        $____is_first = $false
+
         $null = Write-Host "Testing '${____target}' PowerShell Mode..."
         & "$(Get-Location)\${____target}" -Name "Alpha" -Length 5
         if ($LASTEXITCODE -ne 0) {
+                $null = Write-Host "[ FAILED ]"
                 $____verdict = $false
         }
 
 
-        $null = Write-Host "`n`n`n`nTesting '${____target}' Batch Script Mode..."
+        $null = Write-Host "`n`nTesting '${____target}' Batch Script Mode..."
         $null = Remove-Item "$(Get-Location)\Start.bat" -ErrorAction SilentlyContinue
         $null = Copy-Item `
                         -Path "$(Get-Location)\${____target}" `
                         -Destination "$(Get-Location)\Start.bat"
         & "$(Get-Location)\Start.bat" -Name "Alpha" -Length 5
         if ($LASTEXITCODE -ne 0) {
+                $null = Write-Host "[ FAILED ]"
                 $____verdict = $false
         }
 }

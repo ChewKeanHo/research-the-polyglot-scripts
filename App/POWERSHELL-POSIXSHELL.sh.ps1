@@ -1,7 +1,7 @@
 echo \" <<'RUN_AS_BATCH' >/dev/null ">NUL "\" \`" <#"
 @ECHO OFF
 REM ----------------------------------------------------------------------------
-REM LICENSE NOTICE HERE
+REM LICENSE CLAUSES HERE
 REM ----------------------------------------------------------------------------
 
 
@@ -10,10 +10,6 @@ REM ----------------------------------------------------------------------------
 REM ############################################################################
 REM # Windows BATCH Codes                                                      #
 REM ############################################################################
-REM IMPORTANT NOTICE
-REM 1. Downstream $____init_file **MUST STRICTLY** 'return 0' (number 0) to
-REM    indicate a successful happy path. Anything else including missing is
-REM    failed.
 SETLOCAL enabledelayedexpansion
 
 
@@ -22,48 +18,34 @@ SETLOCAL enabledelayedexpansion
 REM configure
 WHERE powershell >nul 2>&1
 IF %ERRORLEVEL% neq 0 (
-    ECHO E: PowerShell -> ???
-    EXIT /b 1
-)
-SET "____init_file=init.ps1"
-SET "____init_directory=lib\namespace"
-
-
-
-
-REM scan
-REM Current directory - user-customized application
-SET "PROJECT_DIRECTORY=%CD%\%____init_directory%\%____init_file%"
-
-IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        REM Native User Rootless Software Directory
-        SET "PROJECT_DIRECTORY=%LOCALAPPDATA%\Programs\%____init_directory%\%____init_file%"
-)
-
-IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        REM Native OS Program Files
-        SET "PROJECT_DIRECTORY=%PROGRAMFILES%\%____init_directory%\%____init_file%"
-)
-
-IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        REM Native OS Program Files (x86)
-        SET "PROJECT_DIRECTORY=%PROGRAMFILES(x86)%\%____init_directory%\%____init_file%"
-)
-
-IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        ECHO "E: Failed to Locate Init File. Bailing Out..."
+        ECHO E: PowerShell -> ???
         EXIT /b 1
 )
+SET "base_name=%~n0"
+SET "source_file=%~f0"
+SET "destination_file=%~dp0%base_name%.sh.ps1"
 
 
 
 
 REM execute
-powershell -NoProfile ^
-        -ExecutionPolicy RemoteSigned ^
-        -Command ^
-        "$____ret = . '%PROJECT_DIRECTORY%' %*; if ($____ret -eq '0') { exit 0 } else { exit 1 }"
-EXIT /B !ERRORLEVEL!
+IF exist "%destination_file%" GOTO :run_ps1
+COPY /y "%source_file%" "%destination_file%" >nul
+IF %ERRORLEVEL% neq 0 (
+    ECHO E: Failed to create %destination_file%
+    EXIT /b 1
+)
+
+
+:run_ps1
+powershell -NoProfile -ExecutionPolicy RemoteSigned -File "%destination_file%" %*
+set "EXIT_CODE=!ERRORLEVEL!"
+
+IF EXIST "%source_file%" (
+        START /B "" cmd /c DEL "%source_file%" >nul 2>&1
+)
+
+EXIT /B %EXIT_CODE%
 REM ############################################################################
 REM # Windows BATCH Codes                                                      #
 REM ############################################################################
