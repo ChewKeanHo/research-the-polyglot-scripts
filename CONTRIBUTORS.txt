@@ -1,0 +1,42 @@
+# This is the list of people who have contributed to this project but they are
+# not the principal creators. For example, company employees may be listed here
+# because their company holds the copyright and is listed in `CREATORS.txt`.
+#
+# Entities from `CREATORS.txt` can be listed here for unified processing
+# purposes. They are the principal contributors regardless.
+#
+# List should be sorted as follows:
+#   1. [YEAR] in decending order; AND THEN
+#   2. Alphabetical order within the same [YEAR]
+#
+# Each entry **MUST COMPLY** with the following pattern:
+#     |Copyright [YEAR] [ENTITY_FULL_NAME] (OPTIONAL_URL) <OPTIONAL_EMAIL>|
+# Legends:
+#   * [YEAR]
+#       - The earliest year of interaction is suffice. Copyright works on first
+#         birth. Range or latest is optional.
+#       - When using range, the last year of ownership indicates the death of
+#         the entity and the Copyright's after death countdown or inheritance
+#         process begins.
+#       - When committing range, you implicitly declared to manually track the
+#         entitiy's lifespan in which, depending on circumstances, can be
+#         perceived as stalking.
+#   * [ENTITY_FULL_NAME]
+#       - The legal entity's goverment registered full name.
+#   * [OPTIONAL_URL]
+#       - The entity's provided URL to contact with.
+#       - It is enclosed with rounded parenthesis (**`( )`**) as defined by
+#         programming syntax for automation and parsing purposes.
+#       - When doing a re-distribution, between the upstream source URL and the
+#         bio-page, choose the upstream source for maintaining the upstream
+#         source location relationship in addition to actual ownership.
+#       - This is optional if URL is unavailable. However, Copyright requires at
+#         least 1 contactable channel so ensure the alternatives are available.
+#   * [OPTIONAL_EMAIL]
+#       - The entity's provided email to contact with.
+#       - The address is enclosed with angled parenthesis (**`< >`**) as defined
+#         programming syntax for automation and parsing purposes.
+#       - This is optional if the email is unavailable. However, Copyright
+#         requires at least 1 contactable channel so ensure the alternatives are
+#         available.
+Copyright 2023 (Holloway) Chew, Kean Ho <hello@chewkeanho.com>
