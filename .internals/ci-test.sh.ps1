@@ -1,6 +1,24 @@
 echo \" <<'RUN_AS_BATCH' >/dev/null ">NUL "\" \`" <#"
 @ECHO OFF
-REM LICENSE CLAUSES HERE
+REM ----------------------------------------------------------------------------
+REM Copyright 2023 The Polyglot Scripts Continuous Research Project Team (https://github.com/ChewKeanHo/research-the-polyglots-script)
+REM
+REM The above unified aliases have one or more actual legal entities listed
+REM outside of this document: (1) 'CREATORS.txt' or 'AUTHORS.txt'; and
+REM (2) 'CONTRIBUTORS.txt'. They are located usually placed next to this
+REM document in their respective project repository. Please refer to them for
+REM compiling the complete list accordingly.
+REM
+REM
+REM Licensed under Creative Common's Attribution-NoDerivatives 4.0 International
+REM License (the 'License'). You must comply with the license to use the
+REM content. Get the License at:
+REM
+REM https://creativecommons.org/licenses/by-nd/4.0
+REM
+REM No warranties are given. The license may not give you all of the permissions
+REM necessary for your intended use. For example, other rights such as
+REM publicity, privacy, or moral rights may limit how you use the material.
 REM ----------------------------------------------------------------------------
 
 
