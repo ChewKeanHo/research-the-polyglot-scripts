@@ -28,7 +28,7 @@ variables:
     - echo "setup job"
     - echo "prepare job"
     - echo "start job"
-    - echo "test job"
+    - ./.internals/ci-test.sh.ps1
     - echo "materialize job"
     - echo "build job"
     - echo "notarize job"

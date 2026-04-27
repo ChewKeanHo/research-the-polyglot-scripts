@@ -68,7 +68,7 @@ jobs:
       - name: TEST
         id: ci_test
         run: |
-          echo "test job"
+          ./.internals/ci-test.sh.ps1
       - name: MATERIALIZE
         id: ci_materialize
         run: |
