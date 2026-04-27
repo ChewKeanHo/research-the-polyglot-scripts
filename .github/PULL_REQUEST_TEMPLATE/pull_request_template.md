@@ -2,7 +2,7 @@
 
 **We DO NOT ACCEPT ANY PULL/MERGE REQUEST FOR THIS REPOSITORY**.
 
-The right procedure for contributing back via these platform services ARE:
+The correct procedure for contributing back via these platform services ARE:
 
 1. **Generate and submit your patches into your corresponding issue ticket**;
 2. Feel free to ask any technical questions about patch generations;
@@ -129,7 +129,7 @@ $ git format-patch <STARTING_COMMIT_ID>^..<END_COMMIT_ID> --stdout > my.patch
 
 # Epilogue
 
-That's all from us. Your pull request **SHALL BE REJECTED WITH PERJUDICE** if
+That's all from us. Your pull request **WILL BE REJECTED WITH PERJUDICE** if
 you choose to ignore this message.
 
 Thank you for your cooperation.

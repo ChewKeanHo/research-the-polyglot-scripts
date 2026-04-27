@@ -1,13 +1,13 @@
 name: "Enhance A Feature"
 description: "To request a feature enhancement for the project."
-labels: [ "Enhancement", "Discussion" ]
+labels: [ "Type/Enhancement", "State/Discussion" ]
 body:
   - type: textarea
     id: description
     attributes:
       label: Description
       description: >
-        Please provide a short description of what you're looking forward to
+        Please provide a short description of what you are looking forward to
         enhance or remove. Please include the story behind the idea to better
         visualize your case.
       placeholder: "E.g: 15cm noodle instead of 5cm - slurp up too quickly."
@@ -27,7 +27,8 @@ body:
     attributes:
       label: Current Behavior
       description: >
-        Please specify the current behavior below.
+        Please specify the any current behavior (e.g. workarounds).You may
+        specify "Not Applicable" when it's not applicable.
       placeholder: "E.g: Noodle is 5cm long and slupped up in 2 seconds. Not enjoyable."
     validations:
       required: true
@@ -37,8 +38,8 @@ body:
       label: Associated Data Files
       description: >
         Please drag and drop all the necessary data files (e.g. screenshot,
-        logs, etc) into the box below. Each successful uploads shall render an
-        URL link on its own.
+        logs, etc) into the box below. Each successful uploads will transform
+        into their unique URL link on its own.
       placeholder: "Please drag and drop it here."
     validations:
       required: false

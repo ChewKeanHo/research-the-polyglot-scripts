@@ -1,6 +1,6 @@
 name: "Documentations"
 description: "To report something about the project's documentation."
-labels: [ "Documentation", "Discussion" ]
+labels: [ "Type/Documentation", "State/Discussion" ]
 body:
   - type: textarea
     id: description
@@ -44,8 +44,8 @@ body:
       label: Associated Data Files
       description: >
         Please drag and drop all the necessary data files (e.g. screenshot,
-        logs, etc) into the box below. Each successful uploads shall render an
-        URL link on its own.
+        logs, etc) into the box below. Each successful uploads will transform
+        into their unique URL link on its own.
       placeholder: "Please drag and drop it here."
     validations:
       required: false

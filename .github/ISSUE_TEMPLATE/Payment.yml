@@ -1,6 +1,6 @@
 name: "Payment"
 description: "To report a case related to a payment transaction for the project."
-labels: [ "Payment", "Discussion" ]
+labels: [ "Type/Payment", "State/Discussion" ]
 body:
   - type: textarea
     id: description
@@ -18,7 +18,7 @@ body:
       label: Expected Behavior
       description: >
         Please specify the expected behavior below of your request feature.
-      placeholder: "E.g: Should be USD8.00."
+      placeholder: "E.g: Should be USD8.00, not USD10.00"
     validations:
       required: true
   - type: textarea
@@ -26,8 +26,9 @@ body:
     attributes:
       label: Current Behavior
       description: >
-        Please specify the any current behavior (e.g. workarounds).
-      placeholder: "E.g: Being charged USD10.00."
+        Please specify the any current behavior (e.g. workarounds).You may
+        specify "Not Applicable" when it's not applicable.
+      placeholder: "E.g: Being charged at USD10.00."
     validations:
       required: true
   - type: textarea
@@ -36,8 +37,8 @@ body:
       label: Associated Data Files
       description: >
         Please drag and drop all the necessary data files (e.g. screenshot,
-        logs, etc) into the box below. Each successful upload shall render an
-        URL link on its own.
+        logs, etc) into the box below. Each successful uploads will transform
+        into their unique URL link on its own.
       placeholder: "Please drag and drop it here."
     validations:
       required: false

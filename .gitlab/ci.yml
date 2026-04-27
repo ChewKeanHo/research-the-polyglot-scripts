@@ -1,0 +1,107 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "stable"
+    - if: $CI_COMMIT_BRANCH == "next"
+    - if: $CI_COMMIT_BRANCH == "testing"
+    - if: $CI_COMMIT_BRANCH == "staging"
+    - if: $CI_COMMIT_BRANCH == "edge"
+    - if: $CI_COMMIT_BRANCH == "experimental"
+    - when: never
+variables:
+  TERM: xterm-256color
+  ROBOT_NAME: "GitLab Actions Autonomous Runner System"
+  ROBOT_EMAIL: "gitlab.ci.runner@gitlab.com"
+  REPO_NAME: $CI_PROJECT_PATH
+  REPO_URL: $CI_PROJECT_URL
+  REPO_COMMIT: $CI_COMMIT_SHA
+  PROJECT_SIMULATE_RUN: true
+  PROJECT_ROBOT_RUN: true
+  PROJECT_ROBOT_GITLAB_TOKEN: $CI_JOB_TOKEN
+.jobs: &jobs
+  variables:
+    RUNNER_OS: $CI_JOB_NAME
+  script:
+    - echo "purge job"
+    - echo "clean job"
+    - echo "env job"
+    - echo "setup job"
+    - echo "prepare job"
+    - echo "start job"
+    - echo "test job"
+    - echo "materialize job"
+    - echo "build job"
+    - echo "notarize job"
+    - echo "package job"
+    - echo "release job"
+    - echo "stop job"
+    - echo "deploy job"
+    - echo "compose job"
+    - echo "publish job"
+    - echo "archive job"
+  artifacts:
+    when: always
+    name: "build-${CI_JOB_NAME}"
+    paths:
+      - artifact-build_*
+      - artifact-workspace_*
+    expire_in: 1 week
+    untracked: false
+pages:
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'pages'
+  image: debian:latest
+  tags:
+    - saas-linux-small-amd64 # gitLab.com shared runner
+  script:
+    - mkdir -p public/
+    - find . ! -name public ! -name . ! -name .git ! -name .gitlab-ci.yml -exec mv {} public/ \;
+  artifacts:
+    paths:
+      - public/
+  when: manual
+
+
+
+
+run-linux-latest:
+  image: debian:latest
+  stage: build
+  tags:
+    - saas-linux-small-amd64 # gitLab.com shared runner
+  before_script:
+    - apt-get update -y
+    - apt-get install -y git curl
+    - git config --global user.email "$ROBOT_NAME"
+    - git config --global user.name "$ROBOT_EMAIL"
+    - git config --global advice.detachedHead false
+    - git checkout $REPO_COMMIT
+  <<: *jobs
+
+
+
+
+run-macos-latest:
+  stage: build
+  tags:
+    - saas-macos-medium-m1 # gitLab.com shared runner
+  before_script:
+    - git config --global user.email "$ROBOT_NAME"
+    - git config --global user.name "$ROBOT_EMAIL"
+    - git config --global advice.detachedHead false
+    - git checkout $REPO_COMMIT
+  <<: *jobs
+
+
+
+
+run-windows-latest:
+  stage: build
+  tags:
+    - saas-windows-medium-amd64 # gitLab.com shared runner
+  before_script:
+    - git config --global user.email "${env:ROBOT_NAME}"
+    - git config --global user.name "${env:ROBOT_EMAIL}"
+    - git config --global advice.detachedHead false
+    - git checkout ${env:REPO_COMMIT}
+  <<: *jobs
