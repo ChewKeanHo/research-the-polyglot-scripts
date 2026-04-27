@@ -50,10 +50,47 @@ echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 #    indicate a successful happy path. Anything else including missing is
 #    failed.
 $____verdict = $true
-$null = Set-Location "$(Get-Location)\App"
+
+
 
 
 # execute
+## Templates
+$____is_first = $true
+foreach ($____target in @(
+        "BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1",
+        "POWERSHELL-POSIXSHELL.sh.ps1",
+        "BATCH-POSIXSHELL.sh.cmd",
+        "BATCH-POWERSHELL.cmd.ps1"
+)) {
+        if ($____is_first -ne $true) {
+                $null = Write-Host "`n`n`n"
+        }
+        $____is_first = $false
+
+        $null = Write-Host "Testing '${____target}' PowerShell Mode..."
+        & "$(Get-Location)\Documents\templates\${____target}" -Name "Alpha" -Length 5
+        if ($LASTEXITCODE -ne 0) {
+                $null = Write-Host "[ FAILED ]"
+                $____verdict = $false
+        }
+
+
+        $null = Write-Host "`n`nTesting '${____target}' Batch Script Mode..."
+        $null = Remove-Item "$(Get-Location)\Documents\templates\Start.bat" -ErrorAction SilentlyContinue
+        $null = Copy-Item `
+                        -Path "$(Get-Location)\Documents\templates\${____target}" `
+                        -Destination "$(Get-Location)\Documents\templates\Start.bat"
+        & "$(Get-Location)\Documents\templates\Start.bat" -Name "Alpha" -Length 5
+        if ($LASTEXITCODE -ne 0) {
+                $null = Write-Host "[ FAILED ]"
+                $____verdict = $false
+        }
+}
+
+
+## App
+$null = Set-Location "$(Get-Location)\App"
 $____is_first = $true
 foreach ($____target in @(
         "BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1",
@@ -103,10 +140,36 @@ RUN_AS_POWERSHELL
 # Unix Main Codes                                                              #
 ################################################################################
 ____verdict=true
-cd "${PWD}/App"
+
+
 
 
 # execute
+## Templates
+____is_first=true
+for ____target in ./Documents/templates/*; do
+        if [ ! -f "$____target" ]; then
+                continue
+        fi
+
+        if [ ! "$____is_first" = "true" ]; then
+                1>&2 printf -- "\n\n\n\n"
+        fi
+        unset ____is_first
+
+
+        1>&2 printf -- "Testing '%s' POSIX Shell Mode...\n" "$____target"
+        ./"$____target" --name "Alpha" --length 5
+        if [ $? -ne 0 ]; then
+                ____verdict=false
+        fi
+done
+
+
+
+
+## App
+cd "${PWD}/App"
 ____is_first=true
 for ____target in ./*; do
         if [ ! -f "$____target" ]; then
