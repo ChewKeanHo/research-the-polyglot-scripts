@@ -39,7 +39,8 @@ $null = Set-Location "$(Get-Location)\App"
 $____is_first = $true
 foreach ($____target in @(
         "BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1",
-        "POWERSHELL-POSIXSHELL.sh.ps1"
+        "POWERSHELL-POSIXSHELL.sh.ps1",
+        "BATCH-POSIXSHELL.sh.cmd"
 )) {
         if ($____is_first -ne $true) {
                 $null = Write-Host "`n`n`n"
