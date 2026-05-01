@@ -212,6 +212,11 @@ if [ ! -f "$PROJECT_DIRECTORY" ]; then
         PROJECT_DIRECTORY="/home/linuxbrew/.linuxbrew/${____init_directory}/${____init_file}"
 fi
 
+if [ ! -f "$PROJECT_DIRECTORY" ]; then
+        # Native User Rootless OPT Directory
+        PROJECT_DIRECTORY="/opt/${____init_package_name}/${____init_directory%/}/${____init_file}"
+fi
+
 if [ ! -f "$PROJECT_DIRECTORY" ] &&
 [ ! "${____init_macos_bundle_name%/}" = "" ] &&
 [ ! "${____init_macos_directory%/}" = "" ]; then
