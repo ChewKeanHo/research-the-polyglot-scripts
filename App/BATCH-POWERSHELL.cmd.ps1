@@ -45,6 +45,7 @@ IF %ERRORLEVEL% neq 0 (
 SET "____init_file=init.ps1"
 SET "____init_directory=lib\namespace"
 
+SET "____init_package_name=My App"
 
 
 
@@ -55,6 +56,16 @@ SET "PROJECT_DIRECTORY=%CD%\%____init_directory%\%____init_file%"
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
         REM Native User Rootless Software Directory
         SET "PROJECT_DIRECTORY=%LOCALAPPDATA%\Programs\%____init_directory%\%____init_file%"
+)
+
+IF NOT EXIST "%PROJECT_DIRECTORY%" (
+        REM Native User Chocolatey Software Directory
+        SET "PROJECT_DIRECTORY=%CHOCOLATEYINSTALL%\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
+)
+
+IF NOT EXIST "%PROJECT_DIRECTORY%" (
+        REM Native OS Chocolatey Software Directory
+        SET "PROJECT_DIRECTORY=%ProgramData%\chocolatey\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
@@ -107,6 +118,8 @@ echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 ${____init_file} = "init.ps1"
 ${____init_directory} ="lib\namespace"
 
+${____init_package_name} = "My App"
+
 
 
 
@@ -117,6 +130,16 @@ ${env:PROJECT_DIRECTORY} = "$(Get-Location)\${____init_directory}\${____init_fil
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
         # Native User Rootless Software Directory
         ${env:PROJECT_DIRECTORY} = "${env:LOCALAPPDATA}\Programs\${____init_directory}\${____init_file}"
+}
+
+if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
+        # Native User Chocolatey Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:CHOCOLATEYINSTALL}\lib\${____init_package_name}\tools\${____init_directory}\${____init_file}"
+}
+
+if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
+        # Native OS Chocolatey Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:PROGRAMDATA}\chocolatey\lib\${____init_package_name}\tools\${____init_directory}\${____init_file}"
 }
 
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {

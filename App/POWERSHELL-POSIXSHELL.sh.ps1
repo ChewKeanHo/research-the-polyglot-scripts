@@ -89,6 +89,8 @@ echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 ${____init_file} = "init.ps1"
 ${____init_directory} ="lib\namespace"
 
+${____init_package_name} = "My App"
+
 
 
 
@@ -99,6 +101,16 @@ ${env:PROJECT_DIRECTORY} = "$(Get-Location)\${____init_directory}\${____init_fil
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
         # Native User Rootless Software Directory
         ${env:PROJECT_DIRECTORY} = "${env:LOCALAPPDATA}\Programs\${____init_directory}\${____init_file}"
+}
+
+if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
+        # Native User Chocolatey Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:CHOCOLATEYINSTALL}\lib\${____init_package_name}\tools\${____init_directory}\${____init_file}"
+}
+
+if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
+        # Native OS Chocolatey Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:PROGRAMDATA}\chocolatey\lib\${____init_package_name}\tools\${____init_directory}\${____init_file}"
 }
 
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
@@ -144,7 +156,9 @@ RUN_AS_POWERSHELL
 ____init_file="init.sh"
 ____init_directory="lib/namespace"
 
-____init_macos_bundle_name="My App.app"
+____init_package_name="My App"
+
+____init_macos_bundle_name="${____init_package_name}.app"
 ____init_macos_directory="namespace"
 
 

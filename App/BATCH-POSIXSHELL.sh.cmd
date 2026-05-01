@@ -45,6 +45,7 @@ IF %ERRORLEVEL% neq 0 (
 SET "____init_file=init.ps1"
 SET "____init_directory=lib\namespace"
 
+SET "____init_package_name=My App"
 
 
 
@@ -55,6 +56,16 @@ SET "PROJECT_DIRECTORY=%CD%\%____init_directory%\%____init_file%"
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
         REM Native User Rootless Software Directory
         SET "PROJECT_DIRECTORY=%LOCALAPPDATA%\Programs\%____init_directory%\%____init_file%"
+)
+
+IF NOT EXIST "%PROJECT_DIRECTORY%" (
+        REM Native User Chocolatey Software Directory
+        SET "PROJECT_DIRECTORY=%CHOCOLATEYINSTALL%\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
+)
+
+IF NOT EXIST "%PROJECT_DIRECTORY%" (
+        REM Native OS Chocolatey Software Directory
+        SET "PROJECT_DIRECTORY=%ProgramData%\chocolatey\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
@@ -137,7 +148,9 @@ RUN_AS_POWERSHELL
 ____init_file="init.sh"
 ____init_directory="lib/namespace"
 
-____init_macos_bundle_name="My App.app"
+____init_package_name="My App"
+
+____init_macos_bundle_name="${____init_package_name}.app"
 ____init_macos_directory="namespace"
 
 
