@@ -191,6 +191,16 @@ if [ ! -f "$PROJECT_DIRECTORY" ]; then
         PROJECT_DIRECTORY="${HOME%/}/.local/${____init_directory%/}/${____init_file}"
 fi
 
+if [ ! -f "$PROJECT_DIRECTORY" ]; then
+        # Homebrew (macOS Apple Silicon)
+        PROJECT_DIRECTORY="/opt/homebrew/${____init_directory}/${____init_file}"
+fi
+
+if [ ! -f "$PROJECT_DIRECTORY" ]; then
+        # Linuxbrew (Homebrew on Linux)
+        PROJECT_DIRECTORY="/home/linuxbrew/.linuxbrew/${____init_directory}/${____init_file}"
+fi
+
 if [ ! -f "$PROJECT_DIRECTORY" ] &&
 [ ! "${____init_macos_bundle_name%/}" = "" ] &&
 [ ! "${____init_macos_directory%/}" = "" ]; then
@@ -206,7 +216,7 @@ if [ ! -f "$PROJECT_DIRECTORY" ] &&
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
-        # Native OS Machine-Specific
+        # Native OS Machine-Specific & Homebrew (macOS Intel)
         PROJECT_DIRECTORY="/usr/local/${____init_directory%/}/${____init_file}"
 fi
 
