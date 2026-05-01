@@ -64,8 +64,23 @@ IF NOT EXIST "%PROJECT_DIRECTORY%" (
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
+        REM Native User Scoop Custom Software Directory
+        SET "PROJECT_DIRECTORY=%SCOOP%\apps\%____init_package_name%\current\%____init_directory%\%____init_file%"
+)
+
+IF NOT EXIST "%PROJECT_DIRECTORY%" (
+        REM Native User Scoop Software Directory
+        SET "PROJECT_DIRECTORY=%USERPROFILE%\scoop\apps\%____init_package_name%\current\%____init_directory%\%____init_file%"
+)
+
+IF NOT EXIST "%PROJECT_DIRECTORY%" (
         REM Native OS Chocolatey Software Directory
         SET "PROJECT_DIRECTORY=%ProgramData%\chocolatey\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
+)
+
+IF NOT EXIST "%PROJECT_DIRECTORY%" (
+        REM Native OS Scoop Software Directory
+        SET "PROJECT_DIRECTORY=%SCOOP_GLOBAL%\apps\%____init_package_name%\current\%____init_directory%\%____init_file%"
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (

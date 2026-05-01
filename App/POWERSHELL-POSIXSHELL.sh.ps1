@@ -109,8 +109,23 @@ if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
 }
 
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
+        # Native User Scoop Custom Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:SCOOP}\apps\${____init_package_name}\current\${____init_directory}\${____init_file}"
+}
+
+if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
+        # Native User Scoop Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:USERPROFILE}\scoop\apps\${____init_package_name}\current\${____init_directory}\${____init_file}"
+}
+
+if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
         # Native OS Chocolatey Software Directory
         ${env:PROJECT_DIRECTORY} = "${env:PROGRAMDATA}\chocolatey\lib\${____init_package_name}\tools\${____init_directory}\${____init_file}"
+}
+
+if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
+        # Native OS Scoop Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:SCOOP_GLOBAL}\apps\${____init_package_name}\current\${____init_directory}\${____init_file}"
 }
 
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
