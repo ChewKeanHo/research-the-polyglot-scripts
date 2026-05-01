@@ -137,44 +137,62 @@ RUN_AS_POWERSHELL
 ____init_file="init.sh"
 ____init_directory="lib/namespace"
 
+____init_macos_bundle_name="My App.app"
+____init_macos_directory="namespace"
+
 
 
 
 # scan
-# Current directory - user-customized application
-PROJECT_DIRECTORY="${PWD%/}/${____init_directory}/${____init_file}"
+# Native User Current Directory - User-Customized Application
+PROJECT_DIRECTORY="${PWD%/}/${____init_directory%/}/${____init_file}"
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
+        # Native User - Linux 2nd-Generation Package
         if ([ -d "/app" ] && [ -f "/.flatpak-info" ]); then
                 # Flatpak
-                PROJECT_DIRECTORY="/app/${____init_directory}/${____init_file}"
+                PROJECT_DIRECTORY="/app/${____init_directory%/}/${____init_file}"
         elif [ ! "$APPDIR" = "" ]; then
                 # AppImage
-                PROJECT_DIRECTORY="${APPDIR%/}/${____init_directory}/${____init_file}"
+                PROJECT_DIRECTORY="${APPDIR%/}/${____init_directory%/}/${____init_file}"
         elif [ ! "$SNAP" = "" ]; then
                 # Snapcraft
-                PROJECT_DIRECTORY="${SNAP%/}/${____init_directory}/${____init_file}"
+                PROJECT_DIRECTORY="${SNAP%/}/${____init_directory%/}/${____init_file}"
         fi
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
-        # Native User Rootless Software Directory
-        PROJECT_DIRECTORY="${HOME%/}/.local/${____init_directory}/${____init_file}"
+        # Native User Rootless Local Directory
+        PROJECT_DIRECTORY="${HOME%/}/.local/${____init_directory%/}/${____init_file}"
+fi
+
+if [ ! -f "$PROJECT_DIRECTORY" ] &&
+[ ! "${____init_macos_bundle_name%/}" = "" ] &&
+[ ! "${____init_macos_directory%/}" = "" ]; then
+        # MacOS User Rootless Local Application
+        PROJECT_DIRECTORY="${HOME}/Applications/${____init_macos_bundle_name%/}/Contents/Resources/${____init_macos_directory%/}/${____init_file}"
+fi
+
+if [ ! -f "$PROJECT_DIRECTORY" ] &&
+[ ! "${____init_macos_bundle_name%/}" = "" ] &&
+[ ! "${____init_macos_directory%/}" = "" ]; then
+        # MacOS OS Application
+        PROJECT_DIRECTORY="/Applications/${____init_macos_bundle_name%/}/Contents/Resources/${____init_macos_directory%/}/${____init_file}"
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
         # Native OS Machine-Specific
-        PROJECT_DIRECTORY="/usr/local/${____init_directory}/${____init_file}"
+        PROJECT_DIRECTORY="/usr/local/${____init_directory%/}/${____init_file}"
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
-        # Native OS
-        PROJECT_DIRECTORY="/usr/${____init_directory}/${____init_file}"
+        # Native OS Distributor
+        PROJECT_DIRECTORY="/usr/${____init_directory%/}/${____init_file}"
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
         # Native OS Root
-        PROJECT_DIRECTORY="/${____init_directory}/${____init_file}"
+        PROJECT_DIRECTORY="/${____init_directory%/}/${____init_file}"
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
