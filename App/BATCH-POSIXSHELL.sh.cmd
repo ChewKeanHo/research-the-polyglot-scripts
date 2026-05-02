@@ -69,13 +69,13 @@ IF NOT EXIST "%PROJECT_DIRECTORY%" (
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        REM Native User Scoop Software Directory
-        SET "PROJECT_DIRECTORY=%USERPROFILE%\scoop\apps\%____init_package_name%\current\%____init_directory%\%____init_file%"
+        REM Native OS Chocolatey Software Directory
+        SET "PROJECT_DIRECTORY=%ProgramData%\chocolatey\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        REM Native OS Chocolatey Software Directory
-        SET "PROJECT_DIRECTORY=%ProgramData%\chocolatey\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
+        REM Native User Scoop Software Directory
+        SET "PROJECT_DIRECTORY=%USERPROFILE%\scoop\apps\%____init_package_name%\current\%____init_directory%\%____init_file%"
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
@@ -106,7 +106,7 @@ powershell -NoProfile ^
         -ExecutionPolicy RemoteSigned ^
         -Command ^
         "$____ret = . '%PROJECT_DIRECTORY%' %*; if ($____ret -eq '0') { exit 0 } else { exit 1 }"
-EXIT /B !ERRORLEVEL!
+EXIT /b !ERRORLEVEL!
 REM ############################################################################
 REM # Windows BATCH Codes                                                      #
 REM ############################################################################
@@ -195,7 +195,7 @@ if [ ! -f "$PROJECT_DIRECTORY" ]; then
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
-        # Homebrew (macOS Apple Silicon)
+        # Homebrew (Apple Silicon MacOS)
         PROJECT_DIRECTORY="/opt/homebrew/${____init_directory}/${____init_file}"
 fi
 
@@ -224,7 +224,7 @@ if [ ! -f "$PROJECT_DIRECTORY" ] &&
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
-        # Native OS Machine-Specific & Homebrew (macOS Intel)
+        # Native OS Machine-Specific & Homebrew (Intel MacOS)
         PROJECT_DIRECTORY="/usr/local/${____init_directory%/}/${____init_file}"
 fi
 

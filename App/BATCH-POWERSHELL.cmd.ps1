@@ -69,13 +69,13 @@ IF NOT EXIST "%PROJECT_DIRECTORY%" (
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        REM Native User Scoop Software Directory
-        SET "PROJECT_DIRECTORY=%USERPROFILE%\scoop\apps\%____init_package_name%\current\%____init_directory%\%____init_file%"
+        REM Native OS Chocolatey Software Directory
+        SET "PROJECT_DIRECTORY=%ProgramData%\chocolatey\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
-        REM Native OS Chocolatey Software Directory
-        SET "PROJECT_DIRECTORY=%ProgramData%\chocolatey\lib\%____init_package_name%\tools\%____init_directory%\%____init_file%"
+        REM Native User Scoop Software Directory
+        SET "PROJECT_DIRECTORY=%USERPROFILE%\scoop\apps\%____init_package_name%\current\%____init_directory%\%____init_file%"
 )
 
 IF NOT EXIST "%PROJECT_DIRECTORY%" (
@@ -106,7 +106,7 @@ powershell -NoProfile ^
         -ExecutionPolicy RemoteSigned ^
         -Command ^
         "$____ret = . '%PROJECT_DIRECTORY%' %*; if ($____ret -eq '0') { exit 0 } else { exit 1 }"
-EXIT /B !ERRORLEVEL!
+EXIT /b !ERRORLEVEL!
 REM ############################################################################
 REM # Windows BATCH Codes                                                      #
 REM ############################################################################

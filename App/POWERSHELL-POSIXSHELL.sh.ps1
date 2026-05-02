@@ -114,13 +114,13 @@ if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
 }
 
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
-        # Native User Scoop Software Directory
-        ${env:PROJECT_DIRECTORY} = "${env:USERPROFILE}\scoop\apps\${____init_package_name}\current\${____init_directory}\${____init_file}"
+        # Native OS Chocolatey Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:PROGRAMDATA}\chocolatey\lib\${____init_package_name}\tools\${____init_directory}\${____init_file}"
 }
 
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
-        # Native OS Chocolatey Software Directory
-        ${env:PROJECT_DIRECTORY} = "${env:PROGRAMDATA}\chocolatey\lib\${____init_package_name}\tools\${____init_directory}\${____init_file}"
+        # Native User Scoop Software Directory
+        ${env:PROJECT_DIRECTORY} = "${env:USERPROFILE}\scoop\apps\${____init_package_name}\current\${____init_directory}\${____init_file}"
 }
 
 if (-not (Test-Path ${env:PROJECT_DIRECTORY})) {
@@ -203,7 +203,7 @@ if [ ! -f "$PROJECT_DIRECTORY" ]; then
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
-        # Homebrew (macOS Apple Silicon)
+        # Homebrew (Apple Silicon MacOS)
         PROJECT_DIRECTORY="/opt/homebrew/${____init_directory}/${____init_file}"
 fi
 
@@ -232,7 +232,7 @@ if [ ! -f "$PROJECT_DIRECTORY" ] &&
 fi
 
 if [ ! -f "$PROJECT_DIRECTORY" ]; then
-        # Native OS Machine-Specific & Homebrew (macOS Intel)
+        # Native OS Machine-Specific & Homebrew (Intel MacOS)
         PROJECT_DIRECTORY="/usr/local/${____init_directory%/}/${____init_file}"
 fi
 

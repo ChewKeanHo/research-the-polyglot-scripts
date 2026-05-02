@@ -51,6 +51,7 @@ echo \" <<'RUN_AS_POWERSHELL' >/dev/null # " | Out-Null
 #    indicate a successful happy path. Anything else including missing is
 #    failed.
 $____verdict = $true
+$____root = Get-Location
 
 
 
@@ -70,7 +71,7 @@ foreach ($____target in @(
         $____is_first = $false
 
         $null = Write-Host "Testing '${____target}' PowerShell Mode..."
-        & "$(Get-Location)\Documents\templates\${____target}" -Name "Alpha" -Length 5
+        & "$(Get-Location)\Documents\Templates\${____target}" -Name "Alpha" -Length 5
         if ($LASTEXITCODE -ne 0) {
                 $null = Write-Host "[ FAILED ]"
                 $____verdict = $false
@@ -78,11 +79,11 @@ foreach ($____target in @(
 
 
         $null = Write-Host "`n`nTesting '${____target}' Batch Script Mode..."
-        $null = Remove-Item "$(Get-Location)\Documents\templates\Start.bat" -ErrorAction SilentlyContinue
+        $null = Remove-Item "$(Get-Location)\Documents\Templates\Start.bat" -ErrorAction SilentlyContinue
         $null = Copy-Item `
-                        -Path "$(Get-Location)\Documents\templates\${____target}" `
-                        -Destination "$(Get-Location)\Documents\templates\Start.bat"
-        & "$(Get-Location)\Documents\templates\Start.bat" -Name "Alpha" -Length 5
+                        -Path "$(Get-Location)\Documents\Templates\${____target}" `
+                        -Destination "$(Get-Location)\Documents\Templates\Start.bat"
+        & "$(Get-Location)\Documents\Templates\Start.bat" -Name "Alpha" -Length 5
         if ($LASTEXITCODE -ne 0) {
                 $null = Write-Host "[ FAILED ]"
                 $____verdict = $false
@@ -91,7 +92,7 @@ foreach ($____target in @(
 
 
 ## App
-$null = Set-Location "$(Get-Location)\App"
+$null = Set-Location "${____root}\App"
 $____is_first = $true
 foreach ($____target in @(
         "BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1",
@@ -124,6 +125,38 @@ foreach ($____target in @(
         }
 }
 
+
+
+
+## Lib
+$null = Set-Location "${____root}\Lib"
+$null = Write-Host "`n`n`n"
+$null = Write-Host "Testing 'BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1' Lib PowerShell Mode..."
+& "${____root}\Lib\BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1"
+if ($LASTEXITCODE -ne 0) {
+        $null = Write-Host "[ FAILED ]"
+        $____verdict = $false
+}
+
+
+$null = Write-Host "`n`nTesting 'BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1' Lib Batch Script Mode..."
+$null = Remove-Item "${____root}\Lib\Start.bat" -ErrorAction SilentlyContinue
+$null = Copy-Item -Path "${____root}\Lib\BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1" `
+                  -Destination "${____root}\Lib\Start.bat"
+$null = Remove-Item "${____root}\Lib\libraries.bat" -ErrorAction SilentlyContinue
+$null = Copy-Item -Path "${____root}\Lib\libraries.sh.cmd.ps1" `
+                  -Destination "${____root}\Lib\libraries.bat"
+& "${____root}\Lib\Start.bat"
+if ($LASTEXITCODE -ne 0) {
+        $null = Write-Host "[ FAILED ]"
+        $____verdict = $false
+}
+
+
+
+
+# conclude
+$null = Set-Location $____root
 if ($____verdict -eq $true) {
         exit 0
 }
@@ -141,14 +174,15 @@ RUN_AS_POWERSHELL
 # Unix Main Codes                                                              #
 ################################################################################
 ____verdict=true
-
+____root="$PWD"
 
 
 
 # execute
 ## Templates
+cd "${____root}/Documents/Templates"
 ____is_first=true
-for ____target in ./Documents/templates/*; do
+for ____target in ./*; do
         if [ ! -f "$____target" ]; then
                 continue
         fi
@@ -170,7 +204,7 @@ done
 
 
 ## App
-cd "${PWD}/App"
+cd "${____root}/App"
 ____is_first=true
 for ____target in ./*; do
         if [ ! -f "$____target" ]; then
@@ -189,11 +223,31 @@ for ____target in ./*; do
         else
                 ./"$____target" --name "Alpha" --length 5
                 if [ $? -ne 0 ]; then
+                        1>&2 printf -- "%s\n" "[  FAILED ]"
                         ____verdict=false
                 fi
         fi
 done
 
+
+
+
+## Lib
+cd "${____root}/Lib"
+1>&2 printf -- "\n\n\n\n"
+1>&2 printf -- "%s\n" \
+        "Testing 'BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1' Lib POSIX Shell Mode..."
+./BATCH-POWERSHELL-POSIXSHELL.sh.cmd.ps1
+if [ $? -ne 0 ]; then
+        1>&2 printf -- "%s\n" "[  FAILED ]"
+        ____verdict=false
+fi
+
+
+
+
+# conclude
+cd "$____root"
 if [ "$____verdict" = "true" ]; then
         exit 0
 fi
