@@ -2,6 +2,12 @@ name: "Payment"
 description: "To report a case related to a payment transaction for the project."
 labels: [ "Type/Payment", "State/Discussion" ]
 body:
+  - type: markdown
+    attributes:
+      value: |-
+        > [!CAUTION]
+        >
+        > If you believe this is a **security matter: STOP**. Refer `SECURITY.md` NOW.
   - type: textarea
     id: description
     attributes:

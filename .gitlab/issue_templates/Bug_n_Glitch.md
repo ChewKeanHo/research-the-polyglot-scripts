@@ -2,6 +2,13 @@
 /label ~"Type/Bug" ~"State/Discussion"
 [comment]: # (GitLab Internal Operation Headers)
 
+> [!CAUTION]
+>
+> If you believe this is a **security matter: STOP**. Refer `SECURITY.md` NOW.
+
+
+
+
 # Description
 
 > Please provide a short description of what you have encountered inside the

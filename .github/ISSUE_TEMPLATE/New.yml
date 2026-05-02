@@ -1,7 +1,13 @@
-name: "New Feature Request"
-description: "To request a new feature for the project."
+name: "New Request"
+description: "To request something new for the project."
 labels: [ "Type/New Feature", "State/Discussion" ]
 body:
+  - type: markdown
+    attributes:
+      value: |-
+        > [!CAUTION]
+        >
+        > If you believe this is a **security matter: STOP**. Refer `SECURITY.md` NOW.
   - type: textarea
     id: description
     attributes:

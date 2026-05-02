@@ -1,6 +1,8 @@
 name: Git Push
 run-name: CI - Git Push
 on:
+  repository_dispatch:
+    types: webhook
   push:
     branches:
       - main

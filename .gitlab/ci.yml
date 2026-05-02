@@ -1,12 +1,6 @@
 workflow:
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_COMMIT_BRANCH == "stable"
-    - if: $CI_COMMIT_BRANCH == "next"
-    - if: $CI_COMMIT_BRANCH == "testing"
-    - if: $CI_COMMIT_BRANCH == "staging"
-    - if: $CI_COMMIT_BRANCH == "edge"
-    - if: $CI_COMMIT_BRANCH == "experimental"
+    - if: ($CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "trigger") && $CI_COMMIT_BRANCH =~ /^(main|stable|next|testing|staging|edge|experimental)$/
     - when: never
 variables:
   TERM: xterm-256color
