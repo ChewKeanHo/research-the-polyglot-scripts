@@ -1,6 +1,6 @@
 cff-version: "1.2.0"
 type: "software"
-date-released: "2026-04-27"
+date-released: "2026-05-04"
 title: "Polyglot Scripts Continuous Research"
 version: "2.0.0"
 license: "CC-BY-ND-4.0"
@@ -43,6 +43,11 @@ abstract: |-
   overhead, and deliver future-proof workflow portability without increasing the
   learning curve. Polyglot Scripts: a universal runtime contract between the
   human and any machine in the past, present, and future.
+
+  This is a self-sufficient independent research report. Therefore, you MUST
+  ALWAYS approach it with full skepticism before reading. Let the report's data
+  and presentation convince you. Verify the findings by reproduction and check
+  its reference validity before concluding your judgment.
 message: |-
   Please cite and reference this repository accordingly.
 authors:

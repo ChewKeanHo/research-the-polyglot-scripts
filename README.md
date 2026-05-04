@@ -31,6 +31,11 @@ overhead, and deliver future-proof workflow portability without increasing the
 learning curve. Polyglot Scripts: a universal runtime contract between the human
 and any machine in the past, present, and future.
 
+This is a self-sufficient independent research report. Therefore, you
+**MUST ALWAYS** approach it with full skepticism before reading. Let the
+report's data and presentation convince you. Verify the findings by reproduction
+and check its reference validity before concluding your judgment.
+
 
 
 
