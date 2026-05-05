@@ -1,4 +1,4 @@
-# Polyglot Scripts Continuous Research | (Holloway) Chew, Kean Ho's Knowledge Research
+# The Polyglot Scripts | (Holloway) Chew, Kean Ho's Knowledge Research
 
 [![banner](/.internals/trademarks/banner_1200x100.svg)](#)
 
@@ -134,7 +134,7 @@ Unless otherwise specified in writing, you **MUST** attribute back to the
 creator(s) as follows:
 
 ```
-Title: Polyglot Scripts Continuous Research
+Title: The Polyglot Scripts
 Creators: (Holloway) Chew, Kean Ho
 Packaged-By: (Holloway) Chew, Kean Ho
 Contact: hello@chewkeanho.com
